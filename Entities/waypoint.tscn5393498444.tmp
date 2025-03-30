@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4ao4bemtsvh1"]
+
+[ext_resource type="Script" uid="uid://3612djwjhpll" path="res://Entities/waypoint.gd" id="1_ici7b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3gl7"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.278431, 0.380392, 1, 0.219608)
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_r3gl7"]
+material = SubResource("StandardMaterial3D_r3gl7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ici7b"]
+shading_mode = 0
+disable_receive_shadows = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r3gl7"]
+material = SubResource("StandardMaterial3D_ici7b")
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uyg5a"]
+shading_mode = 0
+albedo_color = Color(0.219874, 6.35326e-06, 0.937267, 1)
+disable_receive_shadows = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_62ync"]
+material = SubResource("StandardMaterial3D_uyg5a")
+
+[node name="Waypoint" type="Area3D"]
+script = ExtResource("1_ici7b")
+
+[node name="physical" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("SphereMesh_r3gl7")
+
+[node name="close" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
+layers = 4
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_r3gl7")
+
+[node name="far" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("PrismMesh_62ync")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.800568, 0)
+billboard = 2

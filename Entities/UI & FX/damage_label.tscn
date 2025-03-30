@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://wd23prfvyapc"]
+
+[ext_resource type="Script" uid="uid://byht8jfulcnyc" path="res://Entities/UI & FX/damage_label.gd" id="1_lrqbf"]
+
+[node name="DamageLabel" type="Label3D"]
+billboard = 2
+modulate = Color(0.81363, 0, 0.0771486, 1)
+text = "-11"
+script = ExtResource("1_lrqbf")

@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://d8h0a8mi5x56"]
+
+[ext_resource type="PackedScene" uid="uid://h4c0hiakqcye" path="res://Levels/city_1.tscn" id="1_kvnai"]
+[ext_resource type="PackedScene" uid="uid://4q7lgl2rse6l" path="res://Entities/taxi.tscn" id="2_71m0o"]
+[ext_resource type="Script" uid="uid://bnbupb0ak15pt" path="res://views/hud.gd" id="3_e1crh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_71m0o"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_e1crh"]
+sky_material = SubResource("ProceduralSkyMaterial_71m0o")
+
+[sub_resource type="Environment" id="Environment_npfjp"]
+background_mode = 2
+sky = SubResource("Sky_e1crh")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_71m0o"]
+dof_blur_far_enabled = true
+dof_blur_far_transition = -1.0
+dof_blur_amount = 0.05
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_npfjp")
+camera_attributes = SubResource("CameraAttributesPractical_71m0o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="City 1" parent="." instance=ExtResource("1_kvnai")]
+
+[node name="Taxi" parent="." instance=ExtResource("2_71m0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("taxi")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_e1crh")
+taxi = NodePath("../../Taxi")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.201
+anchor_bottom = 0.358
+offset_right = 9.448
+offset_bottom = 11.016
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/HUD/SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/HUD/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 0, 0, 0)

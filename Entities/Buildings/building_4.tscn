@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://0l85rnvq2f1c"]
+
+[ext_resource type="PackedScene" uid="uid://d1acccf65nr6t" path="res://Assets/CityBlocks/gltf/building_F.gltf" id="1_djdbq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vysf1"]
+size = Vector3(2.00073, 2.34277, 1.20795)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8avf6"]
+size = Vector3(2.00232, 0.0981331, 1.99878)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5e8fq"]
+radius = 0.0775807
+height = 0.50874
+
+[node name="Building4" type="StaticBody3D"]
+
+[node name="building_F2" parent="." instance=ExtResource("1_djdbq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00402775, 1.18095, -0.000579834)
+shape = SubResource("BoxShape3D_vysf1")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.10352e-05, 0.0503674, -0.00166893)
+shape = SubResource("BoxShape3D_8avf6")
+disabled = true
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.243879, 0.170868, 0.72754)
+shape = SubResource("CapsuleShape3D_5e8fq")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.258601, 0.170868, 0.691821)
+shape = SubResource("CapsuleShape3D_5e8fq")
