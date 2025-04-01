@@ -39,7 +39,12 @@ var handbrake = false
 
 @onready var hud = get_tree().get_first_node_in_group("HUD")
 
+var doors
+
 func _ready():
+	
+	doors = [$taxi_mesh/left_door,$taxi_mesh/right_door]
+	
 	ground_ray.add_exception(ball)
 	hp = MetaData.hp
 	$Ball.global_position = MetaData.current_position
@@ -79,6 +84,9 @@ func _physics_process(delta):
 	
 	handle_illegalities()
 	
+	if Input.is_action_just_pressed("start"):
+		get_tree().reload_current_scene()
+	
 	
 
 func add_crime(name: String, duration: float):
@@ -96,7 +104,7 @@ func handle_illegalities():
 
 func handle_input_and_movement(delta):
 	
-	speed_meter = round(ball.linear_velocity.length()*10)
+	speed_meter = ball.get_speed()
 	
 	hud.update_speed(speed_meter)
 	

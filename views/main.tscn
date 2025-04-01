@@ -474,7 +474,7 @@ waypoint = ExtResource("14_otlot")
 customer = ExtResource("16_tr4u5")
 
 [node name="Customer" parent="WaypointHandler" instance=ExtResource("16_tr4u5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
 [connection signal="pressed" from="CanvasLayer/HUD/VBoxContainer/RESTART" to="CanvasLayer/HUD" method="_on_restart_pressed"]
 [connection signal="pressed" from="CanvasLayer/HUD/VBoxContainer/BackToMenu" to="CanvasLayer/HUD" method="_on_back_to_menu_pressed"]

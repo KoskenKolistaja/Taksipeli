@@ -2,6 +2,11 @@ extends RigidBody3D
 
 
 
+func get_speed() -> int:
+	var speed = round(linear_velocity.length()*10)
+	
+	return speed
+
 
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if not get_parent().stopped:
