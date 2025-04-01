@@ -343,16 +343,18 @@ draw_pass_1 = SubResource("SphereMesh_0g8po")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.161386, 0)
 
 [node name="left_door" type="Node3D" parent="taxi_mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.21, -0.13)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.21, -0.174819)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="taxi_mesh/left_door"]
+visible = false
 mesh = SubResource("SphereMesh_t7g7a")
 skeleton = NodePath("../../right_door")
 
 [node name="right_door" type="Node3D" parent="taxi_mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.21, -0.13)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.21, -0.174819)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="taxi_mesh/right_door"]
+visible = false
 mesh = SubResource("SphereMesh_ybugy")
 
 [node name="BrakeSound" type="AudioStreamPlayer" parent="."]

@@ -12,6 +12,8 @@ var getting_in = false
 
 var door
 
+var other_door
+
 func _ready():
 	#state_machine.travel("walking")
 	state_machine = $AnimationTree.get("parameters/playback")
@@ -41,17 +43,22 @@ func _physics_process(delta):
 				
 				if dis_1 < dis_2:
 					door = doors[0]
+					other_door = doors[1]
 				else:
 					door = doors[1]
+					other_door = doors[0]
 				
-				rotate_towards_point(door)
+				rotate_towards_point(door,delta)
 				var direction = (door.global_position - $animated_suitman.global_position).normalized()
 				direction = Vector3(direction.x,0,direction.z)
 				$animated_suitman.global_position += direction * speed
 				
 				if door:
 					if (door.global_position - $animated_suitman.global_position).length() < 0.1:
-						get_in()
+						if door == doors[0]:
+							get_in(true)
+						else:
+							get_in(false)
 				
 			elif get_distance_to(target) < 1.5:
 				rotate_towards_player()
@@ -63,9 +70,10 @@ func _physics_process(delta):
 				state_machine.travel("idle")
 				rotate_towards_player()
 	else:
-		rotate_towards_point(target)
+		rotate_towards_point(other_door,delta)
 		var door_pos = door.global_position
 		$animated_suitman.global_position = Vector3(door_pos.x,0.1,door_pos.z)
+
 
 
 
@@ -80,18 +88,20 @@ func rotate_towards_player():
 		var direction = (player.global_position - $animated_suitman.global_position).normalized()
 		$animated_suitman.rotation_degrees.y = rad_to_deg(atan2(-direction.x, -direction.z))
 
-func rotate_towards_point(point):
+func rotate_towards_point(point, delta):
 	var direction = (point.global_position - $animated_suitman.global_position).normalized()
-	
 	var desired = rad_to_deg(atan2(-direction.x, -direction.z))
 	
-	#var to_be = move_toward($animated_suitman.rotation_degrees.y,desired,1)
-	
+	# Smoothly interpolate the rotation
 	$animated_suitman.rotation_degrees.y = desired
 
-func get_in():
+func get_in(inverse: bool):
 	getting_in = true
-	state_machine.travel("enter_car")
+	
+	if inverse:
+		state_machine.travel("enter_car_l")
+	else:
+		state_machine.travel("enter_car_r")
 	
 	
 	await get_tree().create_timer(3).timeout
