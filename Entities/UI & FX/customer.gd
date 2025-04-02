@@ -70,9 +70,10 @@ func _physics_process(delta):
 				state_machine.travel("idle")
 				rotate_towards_player()
 	else:
-		rotate_towards_point(other_door,delta)
+		#rotate_towards_point(other_door,delta)
 		var door_pos = door.global_position
 		$animated_suitman.global_position = Vector3(door_pos.x,0.1,door_pos.z)
+		$animated_suitman.global_rotation = door.global_rotation
 
 
 

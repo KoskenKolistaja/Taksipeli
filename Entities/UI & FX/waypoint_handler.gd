@@ -5,6 +5,7 @@ extends Node3D
 
 var spawns = []
 
+var current
 
 func _ready():
 	spawns = get_tree().get_nodes_in_group("waypoint_spawn")
@@ -14,7 +15,9 @@ func _ready():
 	
 
 func customer_picked():
-	spawn_waypoint(random_spawn().global_position)
+	var spawn = random_spawn()
+	current = spawn
+	spawn_waypoint(spawn.global_position)
 
 
 func spawn_waypoint(spawn_position):
@@ -23,7 +26,9 @@ func spawn_waypoint(spawn_position):
 	add_child(waypoint_instance)
 
 func random_spawn():
-	var random_spawn = spawns[randi_range(0,spawns.size()-1)]
+	var spawns_erased = spawns
+	spawns_erased.erase(current)
+	var random_spawn = spawns_erased[randi_range(0,spawns.size()-1)]
 	return random_spawn
 
 func spawn_customer(spawn_position):
@@ -33,8 +38,9 @@ func spawn_customer(spawn_position):
 
 
 func waypoint_reached():
-	
-	spawn_customer(random_spawn().global_position)
+	var spawn = random_spawn()
+	current = spawn
+	spawn_customer(spawn.global_position)
 	
 	MetaData.money += 100
 	get_tree().get_first_node_in_group("HUD").update_money()
